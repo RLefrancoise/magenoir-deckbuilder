@@ -17,6 +17,7 @@
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
+		  <div class="text" id="unity-progress-loading-text">Chargement: <span id="loading">0%</span></div>
         </div>
       </div>
     </div>
@@ -25,6 +26,7 @@
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
+	  var loading = document.querySelector("#loading");
       var buildUrl = "Build/";
       var loaderUrl = buildUrl + "WebGL.loader.js";
       var config = {
@@ -58,6 +60,7 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
+		  loading.textContent = Math.round(progress * 100) + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
         }).catch((message) => {
@@ -66,5 +69,48 @@
       };
       document.body.appendChild(script);
     </script>
+	<!-- Keyboard Input System -->
+	<!--input id="keyboardInput" type="text" style="position:fixed; z-index: -100;">
+	<script>
+		const keyboardInput = document.getElementById('keyboardInput');
+		const unityCanvas = document.getElementById('unity-canvas');
+	
+		window.showKeyboard = false;
+		let firstClick = false;
+		unityCanvas.addEventListener('click', async function acceptFirstClick() {
+
+		  if(firstClick) return;
+
+		  firstClick = true;
+
+		  while(true)
+		  {
+			if(window.showKeyboard)
+			{
+			  window.showKeyboard = false;
+
+			  keyboardInput.focus(); // calling mobile keyboard
+			}
+
+			await new Promise(r=>setTimeout(r,400));
+		  }
+
+		  
+		});
+
+		document.body.addEventListener('input', e => {
+		  if (e.inputType == "deleteContentBackward" || (e.inputType == 'insertCompositionText' && e.data == null)) {
+			window.unityInstance.SendMessage('InputReceiver', 'Backspace');
+		  }
+		  else if (e.data == null) {
+			return;               
+		  }
+		  else if (e.data.length > 0) {
+			window.unityInstance.SendMessage('InputReceiver', 'AcceptInput', e.data[e.data.length - 1]);
+		  }
+		});
+		
+		
+	</script-->
   </body>
 </html>
