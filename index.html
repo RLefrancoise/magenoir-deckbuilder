@@ -52,9 +52,8 @@
       }
 
       if(isMobile) {
-      //if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         container.className = "unity-mobile";
-        canvas.style.height = "90%";
+        canvas.style.height = document.documentElement.clientHeight + "px";
       } else {
         canvas.style.width = "100%";
         canvas.style.height = "100%";
@@ -77,6 +76,13 @@
         });
       };
       document.body.appendChild(script);
+      
+      if(isMobile) {
+          window.addEventListener("resize", () => {
+              canvas.style.width = document.documentElement.clientWidth + "px";
+              canvas.style.height = document.documentElement.clientHeight + "px";
+          });
+      }
     </script>
   </body>
 </html>
