@@ -53,7 +53,7 @@
 
       if(isMobile) {
         container.className = "unity-mobile";
-        canvas.style.height = document.documentElement.clientHeight + "px";
+        canvas.style.height = window.innerHeight + "px";
       } else {
         canvas.style.width = "100%";
         canvas.style.height = "100%";
@@ -76,11 +76,11 @@
         });
       };
       document.body.appendChild(script);
-      
-      if(isMobile) {
+	  
+	  if(isMobile) {
           window.addEventListener("resize", () => {
-              canvas.style.width = document.documentElement.clientWidth + "px";
-              canvas.style.height = document.documentElement.clientHeight + "px";
+              canvas.style.width = window.innerWidth + "px";
+              canvas.style.height = window.innerHeight + "px";
           });
       }
     </script>
