@@ -53,8 +53,12 @@
 
       if(isMobile) {
         container.className = "unity-mobile";
-        canvas.style.height = Math.round(window.innerHeight * 0.9) + "px";
-        canvas.style.marginTop = Math.round(window.innerHeight * 0.1) + "px";
+        if(/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+            canvas.style.height = Math.round(window.innerHeight * 0.9) + "px";
+            canvas.style.marginTop = Math.round(window.innerHeight * 0.1) + "px";
+        } else {
+            canvas.style.height = "90%";
+        }
       } else {
         canvas.style.width = "100%";
         canvas.style.height = "100%";
@@ -80,8 +84,10 @@
 	  
 	  if(isMobile) {
           window.addEventListener("resize", () => {
-            canvas.style.height = Math.round(window.innerHeight * 0.9) + "px";
-			canvas.style.marginTop = Math.round(window.innerHeight * 0.1) + "px";
+            if(/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                  canvas.style.height = Math.round(window.innerHeight * 0.9) + "px";
+                  canvas.style.marginTop = Math.round(window.innerHeight * 0.1) + "px";
+              }
           });
       }
     </script>
