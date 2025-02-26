@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="fr-FR">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
+	<meta name="viewport" content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <title>MageNoir</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
@@ -30,23 +31,34 @@
       var buildUrl = "Build/";
       var loaderUrl = buildUrl + "WebGL.loader.js";
       var config = {
-        dataUrl: buildUrl + "WebGL.data",
-        frameworkUrl: buildUrl + "WebGL.framework.js",
-        codeUrl: buildUrl + "WebGL.wasm",
+        dataUrl: buildUrl + "WebGL.data.unityweb",
+        frameworkUrl: buildUrl + "WebGL.framework.js.unityweb",
+        codeUrl: buildUrl + "WebGL.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "MageNoir",
         productVersion: "0.1.3",
 		autoSyncPersistentDataPath: true
       };
-        
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+
+      var isMobile = false;
+      var c = document.createElement("canvas");
+      var gl = c.getContext("webgl");
+      var gl2 = c.getContext("webgl2");
+      
+      if ((gl && gl.getExtension('WEBGL_compressed_texture_astc')) || (gl2 &&
+          gl2.getExtension('WEBGL_compressed_texture_astc'))) {
+          isMobile = true;
+      }
+
+      if(isMobile) {
+      //if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         container.className = "unity-mobile";
-        //config.devicePixelRatio = 1;
         canvas.style.height = "90%";
       } else {
         canvas.style.width = "100%";
         canvas.style.height = "100%";
+        document.body.style.overflow = "hidden";
       }
       
       canvas.style.background = "url('" + buildUrl + "/') center / cover";
@@ -66,48 +78,5 @@
       };
       document.body.appendChild(script);
     </script>
-	<!-- Keyboard Input System -->
-	<!--input id="keyboardInput" type="text" style="position:fixed; z-index: -100;">
-	<script>
-		const keyboardInput = document.getElementById('keyboardInput');
-		const unityCanvas = document.getElementById('unity-canvas');
-	
-		window.showKeyboard = false;
-		let firstClick = false;
-		unityCanvas.addEventListener('click', async function acceptFirstClick() {
-
-		  if(firstClick) return;
-
-		  firstClick = true;
-
-		  while(true)
-		  {
-			if(window.showKeyboard)
-			{
-			  window.showKeyboard = false;
-
-			  keyboardInput.focus(); // calling mobile keyboard
-			}
-
-			await new Promise(r=>setTimeout(r,400));
-		  }
-
-		  
-		});
-
-		document.body.addEventListener('input', e => {
-		  if (e.inputType == "deleteContentBackward" || (e.inputType == 'insertCompositionText' && e.data == null)) {
-			window.unityInstance.SendMessage('InputReceiver', 'Backspace');
-		  }
-		  else if (e.data == null) {
-			return;               
-		  }
-		  else if (e.data.length > 0) {
-			window.unityInstance.SendMessage('InputReceiver', 'AcceptInput', e.data[e.data.length - 1]);
-		  }
-		});
-		
-		
-	</script-->
   </body>
 </html>
