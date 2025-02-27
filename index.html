@@ -29,11 +29,11 @@
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
 	  var loading = document.querySelector("#loading");
       var buildUrl = "Build/";
-      var loaderUrl = buildUrl + "WebGL.loader.js";
+      var loaderUrl = buildUrl + "5336a4b2c43054286fd70b1faa467eee.loader.js";
       var config = {
-        dataUrl: buildUrl + "WebGL.data.unityweb",
-        frameworkUrl: buildUrl + "WebGL.framework.js.unityweb",
-        codeUrl: buildUrl + "WebGL.wasm.unityweb",
+        dataUrl: buildUrl + "a91935668725f1ee1a2a34ada945fbcf.data.unityweb",
+        frameworkUrl: buildUrl + "52ec8d1621d73eec143f6c90f8ca442e.framework.js.unityweb",
+        codeUrl: buildUrl + "1b810a411b45714be0ccc60338d4c961.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "MageNoir",
@@ -52,17 +52,17 @@
       }
 
       if(isMobile) {
-        container.className = "unity-mobile";
-        if(/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-            canvas.style.height = Math.round(window.innerHeight * 0.9) + "px";
-            canvas.style.marginTop = Math.round(window.innerHeight * 0.1) + "px";
-        } else {
-            canvas.style.height = window.innerHeight + "px";
-        }
+          container.className = "unity-mobile";
+          if(/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+              canvas.style.height = Math.round(window.innerHeight * 0.9) + "px";
+              canvas.style.marginTop = Math.round(window.innerHeight * 0.1) + "px";
+          } else {
+              canvas.style.height = window.innerHeight + "px";
+          }
       } else {
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
-        document.body.style.overflow = "hidden";
+          canvas.style.width = "100%";
+          canvas.style.height = "100%";
+          document.body.style.overflow = "hidden";
       }
       
       canvas.style.background = "url('" + buildUrl + "/') center / cover";
@@ -81,15 +81,15 @@
         });
       };
       document.body.appendChild(script);
-	  
-	  if(isMobile) {
+
+      if(isMobile) {
           window.addEventListener("resize", () => {
-            if(/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-				canvas.style.height = Math.round(window.innerHeight * 0.9) + "px";
-				canvas.style.marginTop = Math.round(window.innerHeight * 0.1) + "px";
-            } else {
-				canvas.style.height = window.innerHeight + "px";
-			}
+              if(/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                  canvas.style.height = Math.round(window.innerHeight * 0.9) + "px";
+                  canvas.style.marginTop = Math.round(window.innerHeight * 0.1) + "px";
+              } else {
+                  canvas.style.height = window.innerHeight + "px";
+              }
           });
       }
     </script>
